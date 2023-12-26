@@ -120,12 +120,8 @@ async def upload_video(video: UploadFile = File(...)):
     
 @app.get("/videos/{video_path}", tags=["UPLOAD VIDEO"])
 async def get_video(video_path: str = Path(...)):
-    return video_path
-    # D:/Testing photo/python/uploads/videos/1703560484_769263_F724CB.mp4
-    # D:/Testing photo/python/uploads/videos/1703560484_769263_F724CB.mp4
-    
-    # if not os.path.exists(video_path):
-    #     raise HTTPException(status_code=404, detail="VIDEO NOT FOUND")
+    if not os.path.exists(video_path):
+        raise HTTPException(status_code=404, detail="VIDEO NOT FOUND")
 
     response = FileResponse(video_path, media_type="video/mp4")
     return response
